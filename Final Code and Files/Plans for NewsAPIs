@@ -1,0 +1,34 @@
+Check out news APIs for the following websites:
+    Guardian
+    Washington Post
+    Reuters
+All have been confirmed to allow searching through archived articles
+    News API only lets you search current headlines but with multiple different sources
+
+
+Word tokenization:
+    Need to tokenize words and find a way to separate the dates from the text
+    Find way to make each date an entry and list each title seen on that day
+
+    from collections import defaultdict
+
+# Read the file
+with open('Headlines_and_Dates.txt', 'r') as file:
+    lines = file.readlines()
+
+# Extract the date and headline, and count occurrences
+date_headlines = defaultdict(list)
+for line in lines:
+    parts = line.split('T', 1)
+    date = parts[0]
+    headline_parts = parts[1].split(':', 3)
+    headline = headline_parts[3].split('-')
+    headline = headline[0]
+    date_headlines[date].append(headline)
+
+# Print the date and headline counts
+for date, headlines in date_headlines.items():
+    print(f"{date}")
+    for headline in headlines:
+        print(f"{headline}")
+   
